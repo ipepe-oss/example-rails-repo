@@ -78,7 +78,13 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: example_production
-  username: example
-  password: <%= ENV["EXAMPLE_DATABASE_PASSWORD"] %>
+  pool:     50
+  timeout:  5000
+  port:     5432
+  adapter:  postgresql
+  encoding: unicode
+  gssencmode: disable
+  database: <%= ENV.fetch('DB_NAME',     'webapp') %>
+  username: <%= ENV.fetch('DB_USERNAME', 'webapp')  %>
+  password: <%= ENV.fetch('DB_PASSWORD', 'Password1')  %>
+  host: <%= ENV.fetch('DB_HOST',     'postgres_db') %>
